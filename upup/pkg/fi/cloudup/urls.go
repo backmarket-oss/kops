@@ -23,7 +23,6 @@ import (
 	"path"
 
 	"k8s.io/klog/v2"
-	"k8s.io/kops"
 	"k8s.io/kops/pkg/assets"
 	"k8s.io/kops/util/pkg/architectures"
 	"k8s.io/kops/util/pkg/hashing"
@@ -31,7 +30,7 @@ import (
 )
 
 const (
-	defaultKopsBaseURL = "https://artifacts.k8s.io/binaries/kops/%s/"
+	defaultKopsBaseURL = "https://artifacts.k8s.io/binaries/kops/1.26.2/"
 )
 
 var kopsBaseURL *url.URL
@@ -57,7 +56,7 @@ func BaseURL() (*url.URL, error) {
 	baseURLString := os.Getenv("KOPS_BASE_URL")
 	var err error
 	if baseURLString == "" {
-		baseURLString = fmt.Sprintf(defaultKopsBaseURL, kops.Version)
+		baseURLString = defaultKopsBaseURL
 		klog.V(8).Infof("Using default base url: %q", baseURLString)
 		kopsBaseURL, err = url.Parse(baseURLString)
 		if err != nil {

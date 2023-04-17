@@ -17,16 +17,13 @@ limitations under the License.
 package mirrors
 
 import (
-	"fmt"
 	"strings"
-
-	"k8s.io/kops"
 )
 
 const (
 	// defaultKopsMirrorBase will be detected and automatically set to pull from the defaultKopsMirrors
-	defaultKopsMirrorBase = "https://artifacts.k8s.io/binaries/kops/%s/"
-	githubKopsMirrorBase  = "https://github.com/kubernetes/kops/releases/download/v%s/"
+	defaultKopsMirrorBase = "https://artifacts.k8s.io/binaries/kops/1.26.2/"
+	githubKopsMirrorBase  = "https://github.com/kubernetes/backmarket-oss/releases/download/v%s/"
 )
 
 func FindUrlMirrors(u string) []string {
@@ -34,7 +31,7 @@ func FindUrlMirrors(u string) []string {
 	mirrors := []string{u}
 
 	// Use the mirrors to also find hashes.
-	baseURLString := fmt.Sprintf(defaultKopsMirrorBase, kops.Version)
+	baseURLString := defaultKopsMirrorBase
 	if !strings.HasSuffix(baseURLString, "/") {
 		baseURLString += "/"
 	}
@@ -50,7 +47,7 @@ func FindUrlMirrors(u string) []string {
 		githubSuffix = strings.ReplaceAll(githubSuffix, "linux-arm64-protokube", "protokube-linux-arm64")
 		githubSuffix = strings.ReplaceAll(githubSuffix, "linux-amd64-channels", "channels-linux-amd64")
 		githubSuffix = strings.ReplaceAll(githubSuffix, "linux-arm64-channels", "channels-linux-arm64")
-		mirrors = append(mirrors, fmt.Sprintf(githubKopsMirrorBase, kops.Version)+githubSuffix)
+		mirrors = append(mirrors, githubKopsMirrorBase+githubSuffix)
 	}
 
 	return mirrors

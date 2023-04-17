@@ -1,4 +1,4 @@
-owner: kubernetes
+owner: backmarket-oss
 repo: kops
 assets:
   - source: darwin/amd64/kops
