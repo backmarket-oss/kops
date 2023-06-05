@@ -438,6 +438,14 @@ rules:
   verbs:
   - list
   - watch
+# to set NetworkUnavailable false on startup and remove cilium taint
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - nodes/status
+  verbs:
+  - patch
 - apiGroups:
   - ""
   resources:
